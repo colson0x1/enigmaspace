@@ -1,10 +1,10 @@
-const { Engine, Render, Runner, World, Bodies, Body } = Matter;
+const { Engine, Render, Runner, World, Bodies, Body, Events } = Matter;
 
 const engine = Engine.create();
 engine.world.gravity.y = 0;
 const { world } = engine;
 
-const cells = 10;
+const cells = 3;
 const width = 600;
 const height = 600;
 
@@ -153,39 +153,57 @@ verticals.forEach((row, rowIndex) => {
   });
 });
 
-// Goal
+// nexus
 
-const goal = Bodies.rectangle(
+const nexus = Bodies.rectangle(
   width - unitLength / 2,
   height - unitLength / 2,
   unitLength * 0.7,
   unitLength * 0.7,
   {
     isStatic: true,
+    label: 'nexus',
   }
 );
 
-World.add(world, goal);
+World.add(world, nexus);
 
-// Ball
+// meteor
 
-const ball = Bodies.circle(unitLength / 2, unitLength / 2, unitLength / 4);
+const meteor = Bodies.circle(unitLength / 2, unitLength / 2, unitLength / 4, {
+  label: 'meteor',
+});
 
-World.add(world, ball);
+World.add(world, meteor);
 
 document.addEventListener('keydown', (event) => {
-  const { x, y } = ball.velocity;
+  const { x, y } = meteor.velocity;
 
   if (event.key === 'w') {
-    Body.setVelocity(ball, { x, y: y - 5 });
+    Body.setVelocity(meteor, { x, y: y - 5 });
   }
   if (event.key === 'a') {
-    Body.setVelocity(ball, { x: x - 5, y });
+    Body.setVelocity(meteor, { x: x - 5, y });
   }
   if (event.key === 's') {
-    Body.setVelocity(ball, { x, y: y + 5 });
+    Body.setVelocity(meteor, { x, y: y + 5 });
   }
   if (event.key === 'd') {
-    Body.setVelocity(ball, { x: x + 5, y });
+    Body.setVelocity(meteor, { x: x + 5, y });
   }
+});
+
+// meteor collides with nexus
+
+Events.on(engine, 'collisionStart', (event) => {
+  event.pairs.forEach((collision) => {
+    const labels = ['meteor', 'nexus'];
+
+    if (
+      labels.includes(collision.bodyA.label) &&
+      labels.includes(collision.bodyB.label)
+    ) {
+      console.log('You WON yay!!');
+    }
+  });
 });
