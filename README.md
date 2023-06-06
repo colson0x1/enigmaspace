@@ -24,8 +24,14 @@ Try to reach the green nexus without hitting the red walls. If the meteor collid
 - CSS
 - JavaScript (Vanilla)
 
-## Acknowledgements
-This maze app was built using the Matter.js physics engine (version 0.19.0). Special thanks to the developers and contributors of Matter.js for providing a powerful framework for creating interactive experiences.
+## Acknowledgment
+
+I would like to acknowledge the following resources and contributors that have been instrumental in the development of this project:
+
+- [GitHub](https://github.com/) - The platform that hosts the repository and enables collaborative development.
+- [Imgur](https://imgur.com/) - The image hosting service used for displaying screenshots in the README.
+
+I would also like to express my gratitude to the open-source community for their valuable contributions and support.
 
 ## License
 This project is licensed under the MIT License. Feel free to modify and use the code as per your requirements.
