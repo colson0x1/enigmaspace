@@ -4,11 +4,13 @@ const engine = Engine.create();
 engine.world.gravity.y = 0;
 const { world } = engine;
 
-const cells = 5;
-const width = 600;
-const height = 600;
+const cellsHorizontal = 4;
+const cellsVertical = 3;
+const width = window.innerWidth;;
+const height = window.innerHeight;
 
-const unitLength = width / cells;
+const unitLengthX = width / cellsHorizontal;
+const unitLengthY = height / cellsVertical;
 
 const render = Render.create({
   element: document.body,
@@ -25,10 +27,10 @@ Runner.run(Runner.create(), engine);
 
 // Walls
 const walls = [
-  Bodies.rectangle(width / 2, 0, width, 40, { isStatic: true }),
-  Bodies.rectangle(width / 2, height, width, 40, { isStatic: true }),
-  Bodies.rectangle(0, height / 2, 40, height, { isStatic: true }),
-  Bodies.rectangle(width, height / 2, 40, height, { isStatic: true }),
+  Bodies.rectangle(width / 2, 0, width, 2, { isStatic: true }),
+  Bodies.rectangle(width / 2, height, width, 2, { isStatic: true }),
+  Bodies.rectangle(0, height / 2, 2, height, { isStatic: true }),
+  Bodies.rectangle(width, height / 2, 2, height, { isStatic: true }),
 ];
 World.add(world, walls);
 
