@@ -1,3 +1,22 @@
 body {
     margin: 0;
 }
+
+.hidden {
+    display: none !important;
+}
+
+h1 {
+    color: #fff;
+    font-size: 44px;
+}
+
+.champ {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    z-index: 1;
+    height: 100vh;
+    width: 100vh;
+}

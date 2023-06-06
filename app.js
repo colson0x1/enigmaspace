@@ -4,9 +4,9 @@ const engine = Engine.create();
 engine.world.gravity.y = 0;
 const { world } = engine;
 
-const cellsHorizontal = 14;
-const cellsVertical = 10;
-const width = window.innerWidth;;
+const cellsHorizontal = 30;
+const cellsVertical = 20;
+const width = window.innerWidth;
 const height = window.innerHeight;
 
 const unitLengthX = width / cellsHorizontal;
@@ -131,6 +131,9 @@ horizontals.forEach((row, rowIndex) => {
       {
         isStatic: true,
         label: 'wall',
+        render: {
+          fillStyle: '#FF0000',
+        },
       }
     );
     World.add(world, wall);
@@ -151,6 +154,9 @@ verticals.forEach((row, rowIndex) => {
       {
         isStatic: true,
         label: 'wall',
+        render: {
+          fillStyle: '#FF0000',
+        },
       }
     );
     World.add(world, wall);
@@ -167,6 +173,9 @@ const nexus = Bodies.rectangle(
   {
     isStatic: true,
     label: 'nexus',
+    render: {
+      fillStyle: '#98FF98',
+    },
   }
 );
 
@@ -177,6 +186,9 @@ World.add(world, nexus);
 const meteorRadius = Math.min(unitLengthX, unitLengthY) / 4;
 const meteor = Bodies.circle(unitLengthX / 2, unitLengthY / 2, meteorRadius, {
   label: 'meteor',
+  render: {
+    fillStyle: '#FFA500',
+  },
 });
 
 World.add(world, meteor);
@@ -185,16 +197,16 @@ document.addEventListener('keydown', (event) => {
   const { x, y } = meteor.velocity;
 
   if (event.key === 'w') {
-    Body.setVelocity(meteor, { x, y: y - 5 });
+    Body.setVelocity(meteor, { x, y: y - 1 });
   }
   if (event.key === 'a') {
-    Body.setVelocity(meteor, { x: x - 5, y });
+    Body.setVelocity(meteor, { x: x - 1, y });
   }
   if (event.key === 's') {
-    Body.setVelocity(meteor, { x, y: y + 5 });
+    Body.setVelocity(meteor, { x, y: y + 1 });
   }
   if (event.key === 'd') {
-    Body.setVelocity(meteor, { x: x + 5, y });
+    Body.setVelocity(meteor, { x: x + 1, y });
   }
 });
 
@@ -208,6 +220,7 @@ Events.on(engine, 'collisionStart', (event) => {
       labels.includes(collision.bodyA.label) &&
       labels.includes(collision.bodyB.label)
     ) {
+      document.querySelector('.champ').classList.remove('hidden');
       world.gravity.y = 1;
       world.bodies.forEach((body) => {
         if (body.label === 'wall') {
