@@ -4,7 +4,7 @@ const engine = Engine.create();
 engine.world.gravity.y = 0;
 const { world } = engine;
 
-const cells = 3;
+const cells = 5;
 const width = 600;
 const height = 600;
 
@@ -128,6 +128,7 @@ horizontals.forEach((row, rowIndex) => {
       10,
       {
         isStatic: true,
+        label: 'wall',
       }
     );
     World.add(world, wall);
@@ -147,6 +148,7 @@ verticals.forEach((row, rowIndex) => {
       unitLength,
       {
         isStatic: true,
+        label: 'wall',
       }
     );
     World.add(world, wall);
@@ -203,7 +205,12 @@ Events.on(engine, 'collisionStart', (event) => {
       labels.includes(collision.bodyA.label) &&
       labels.includes(collision.bodyB.label)
     ) {
-      console.log('You WON yay!!');
+      world.gravity.y = 1;
+      world.bodies.forEach((body) => {
+        if (body.label === 'wall') {
+          Body.setStatic(body, false);
+        }
+      });
     }
   });
 });
